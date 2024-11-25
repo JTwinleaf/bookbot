@@ -3,15 +3,17 @@ def main():
     text = get_book_text(book_path)
     num_words = get_num_words(text)
     dict_of_char = get_char_count(text)
-    list_of_char = dick_to_tuple(dict_of_char)
+    list_of_char = dick_to_list(dict_of_char)
     sorted_charlist = sort_funk(list_of_char)
-    char_report = get_char_report(sorted_charlist)
 
     print(f"--- Begin report of {book_path} ---")
     print(f"{num_words} words found in the document")
     print()
-    print(list_of_char)
+    get_char_report(sorted_charlist)
+    print("--- End report ---")
 
+def sorter(dictlist):
+    return dictlist["count"]
 
 def get_num_words(text):
     words = text.split()
@@ -36,13 +38,22 @@ def get_char_count(text):
         else:
             count[char] = 1
     return count
-def dick_to_tuple(dict):
-    return list(dict.items())
+
+def dick_to_list(dict):
+    charList = []
+    for key, value in dict.items():
+        temp = {"char": key, "count": value}
+        charList.append(temp)
+    return charList
 
 def sort_funk(dictlist):
-    return dictlist.sort()
+    dictlist.sort(reverse=True, key=sorter)
+    return dictlist
 
 def get_char_report(chars):
-    pass
+    for char in chars:
+        character = char["char"]
+        count = char["count"]
+        print(f"The {character} character was found {count} times")
 
 main()
