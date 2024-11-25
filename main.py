@@ -2,11 +2,14 @@ def main():
     book_path = "books/frankenstein.txt"
     text = get_book_text(book_path)
     num_words = get_num_words(text)
-    list_of_char = get_char_count(text)
-    char_report = get_char_report(list_of_char)
+    dict_of_char = get_char_count(text)
+    list_of_char = dick_to_tuple(dict_of_char)
+    sorted_charlist = sort_funk(list_of_char)
+    char_report = get_char_report(sorted_charlist)
 
     print(f"--- Begin report of {book_path} ---")
     print(f"{num_words} words found in the document")
+    print()
     print(list_of_char)
 
 
@@ -21,15 +24,25 @@ def get_book_text(path):
 
 def get_char_count(text):
     count = {}
-    characters = list(text.lower())
+    characters = []
+    lower_text = list(text.lower())
+    for char in lower_text:
+        if char.isalpha():
+            characters.append(char)
+
     for char in characters:
         if char in count:
             count[char] += 1
         else:
             count[char] = 1
     return count
+def dick_to_tuple(dict):
+    return list(dict.items())
 
-def get_char_report(dict):
+def sort_funk(dictlist):
+    return dictlist.sort()
+
+def get_char_report(chars):
     pass
 
 main()
